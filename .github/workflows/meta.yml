@@ -21,14 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
+      # ubuntu-slim ships a minimal toolset; PyYAML is not preinstalled.
+      - name: Install PyYAML
+        run: python3 -m pip install --break-system-packages --quiet pyyaml
+
       - name: Parse every YAML file
         run: |
           python3 - <<'PY'
           import pathlib, sys
-          try:
-              import yaml
-          except ImportError:
-              sys.exit("PyYAML unavailable")
+          import yaml
           bad = 0
           for p in sorted(pathlib.Path(".").rglob("*.yml")) + sorted(pathlib.Path(".").rglob("*.yaml")):
               try:
