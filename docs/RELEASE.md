@@ -15,12 +15,12 @@ Changing one without bumping it is a breaking-change incident.
 
 | Format | Owner | Version field |
 | --- | --- | --- |
-| HTTP API | `core` | URL path `/api/v1`, plus `GET /api/version` |
+| HTTP API | `server` | URL path `/api/v1`, plus `GET /api/version` |
 | Trial package format | `content` | `format_version` |
 | Content pack | `content` | `format_version` |
 | Judge job format | `judge` | `protocol_version` |
 | Judge result format | `judge` | `protocol_version` |
-| CAS manifest | `fabric` | `manifest_version` |
+| CAS manifest | `storage` | `manifest_version` |
 | Worker protocol | `judge` | `protocol_version` |
 
 ## Release process

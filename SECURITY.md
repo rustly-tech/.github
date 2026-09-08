@@ -27,9 +27,9 @@ Rustly executes untrusted user-supplied Rust code. The following are treated as
 | Sandbox escape in `judge` | Arbitrary code execution on judge infrastructure |
 | Hidden-test disclosure | Destroys judging integrity for every user |
 | Resource-limit bypass (CPU / memory / wall / output) | Denial of service and cost exposure |
-| Verdict forgery or replay against `core` | Corrupts ranking and progress authority |
-| CAS integrity bypass in `fabric` | Poisoned content served as verified |
-| Git ref or permission bypass in `git` | Cross-tenant workspace access |
+| Verdict forgery or replay against `server` | Corrupts ranking and progress authority |
+| CAS integrity bypass in `storage` | Poisoned content served as verified |
+| Git ref or permission bypass in `workspaces` | Cross-tenant workspace access |
 | Secret exposure through CI, especially fork PR workflows | Full org compromise |
 
 ## Judge threat model

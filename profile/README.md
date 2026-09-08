@@ -1,18 +1,32 @@
-<div align="center">
-
-<img src="assets/Rustly-Orange.png" alt="Rustly" width="100">
-
-[Contributing](https://github.com/rustly-tech/.github/blob/main/CONTRIBUTING.md) ·
-[Architecture](https://github.com/rustly-tech/infra/blob/main/docs/ARCHITECTURE.md) ·
-[Security](https://github.com/rustly-tech/.github/blob/main/SECURITY.md)
+# Rustly
 
 **Learn Rust by writing, breaking, fixing, and reading real Rust.**
 
-</div>
+Rustly combines short interactive lessons with real compiler feedback, judged
+Trials, and examples drawn from open-source Rust projects.
 
-Rustly teaches through short interactive lessons where you predict what the
-compiler will say before you run anything, and real `rustc` output is part of the
-explanation rather than something hidden behind it. Practice happens in **Trials**
-— judged exercises with public and hidden tests — and every concept is anchored to
-real open-source Rust, pinned to a commit, so you learn from code that actually
-ships.
+[rustly.tech](https://rustly.tech)
+
+## Explore
+
+- **Learn** — build a clear mental model through small runnable examples.
+- **Trials** — solve focused Rust exercises and compare accepted solutions.
+- **Cheatsheets** — keep the language details you need close at hand.
+- **Community** — discuss Rust code and learn with other developers.
+
+## Repositories
+
+| Repository | Contains |
+| --- | --- |
+| [web](https://github.com/rustly-tech/web) | The Rustly website |
+| [content](https://github.com/rustly-tech/content) | Lessons, Trials, quizzes, and references |
+| [server](https://github.com/rustly-tech/server) | The Rustly server |
+| [judge](https://github.com/rustly-tech/judge) | Exercise checking and judging |
+
+[View all repositories](https://github.com/orgs/rustly-tech/repositories)
+
+[Contributing](https://github.com/rustly-tech/.github/blob/main/CONTRIBUTING.md) ·
+[Security](https://github.com/rustly-tech/.github/blob/main/SECURITY.md)
+
+Architecture and operating notes live in the
+[engineering documentation](https://github.com/rustly-tech/infra/tree/main/docs).

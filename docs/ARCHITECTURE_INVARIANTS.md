@@ -26,7 +26,7 @@ batched checkpoints.
 ## D. Distributed immutable bytes
 
 Large immutable objects live in the content-addressed data plane
-(CAS / CDN / cache / P2P). They do not travel through the core API and they are
+(CAS / CDN / cache / P2P). They do not travel through the server API and they are
 never stored in PostgreSQL. The API returns CAS metadata, CIDs, and source
 locations.
 
