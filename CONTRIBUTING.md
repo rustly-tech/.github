@@ -36,7 +36,9 @@ cargo clippy --all-targets --all-features -- -D warnings
 cargo test --workspace --all-features
 ```
 
-- Edition 2021, MSRV declared per repository in `Cargo.toml` (`rust-version`).
+- Edition 2021, MSRV declared per repository in `Cargo.toml` (`rust-version`) and
+  enforced by a CI job. Raise it only when a dependency floor forces it, and say
+  which dependency in the commit message.
 - `thiserror` for library error types, `anyhow` only at binary/boundary layers.
 - `unsafe` requires a `// SAFETY:` comment and a reviewer who understands it.
 - Public items in `protocol`/`domain` crates need doc comments.

@@ -31,7 +31,7 @@ jobs:
   ci:
     uses: rustly-tech/.github/.github/workflows/rust-ci.yml@main
     with:
-      msrv: "1.85.0"          # omit to skip the MSRV job
+      msrv: "1.88.0"          # omit to skip the MSRV job
       features: "--all-features"
       beta: true              # non-blocking early warning
       targets: ""             # extra rustup targets, space separated
@@ -52,6 +52,13 @@ jobs:
 
 Jobs: `cargo-deny` (advisories, and bans/licenses/sources as separate matrix
 legs) and `cargo-audit --deny warnings`.
+
+`audit-ignore` takes space-separated RUSTSEC ids. It exists because cargo-audit
+reads `Cargo.lock`, which records every *optional* dependency whether or not it
+is ever compiled - so an advisory can fire for code the build never touches.
+cargo-deny's advisories check walks the real dependency graph and is the
+authority; anything passed to `audit-ignore` must be justified where it is
+passed.
 
 ### `web-ci.yml`
 

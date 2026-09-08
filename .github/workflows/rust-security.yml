@@ -11,6 +11,16 @@ on:
       toolchain:
         type: string
         default: stable
+      audit-ignore:
+        description: >-
+          Space-separated RUSTSEC ids for cargo-audit to ignore. cargo-audit reads
+          Cargo.lock, which records every optional dependency whether or not it is
+          ever compiled, so an advisory can fire for code the build never touches.
+          cargo-deny's advisories check is graph-aware and is not affected, which
+          makes it the authority; this input exists only to keep the lockfile scan
+          usable. Every id passed here must be justified in the calling workflow.
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -43,4 +53,12 @@ jobs:
       - uses: taiki-e/install-action@d438492cf8a250514fa2d34b30bc3c0dc37c65ff # v2
         with:
           tool: cargo-audit
-      - run: cargo audit --deny warnings
+      - name: Audit
+        run: |
+          set -euo pipefail
+          args=()
+          for id in ${{ inputs.audit-ignore }}; do
+            echo "ignoring $id (justified in the calling workflow)"
+            args+=(--ignore "$id")
+          done
+          cargo audit --deny warnings "${args[@]}"
