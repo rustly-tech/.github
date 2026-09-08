@@ -8,7 +8,10 @@
 
 ## Maturity of what is added
 
-<!-- Delete the ones that do not apply. Be honest; mislabelling is a review blocker. -->
+<!--
+Delete the ones that do not apply. Be honest; mislabelling is a review blocker.
+Definitions: https://github.com/rustly-tech/.github/blob/main/docs/MATURITY.md
+-->
 
 - [ ] **IMPLEMENTED** - code exists, built by CI, covered by tests
 - [ ] **QUALIFIED** - validated against an adversarial/reproducible corpus

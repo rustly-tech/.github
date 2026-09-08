@@ -6,15 +6,32 @@ Organisation-wide metadata, engineering standards, and reusable CI for
 **This repository contains no application code.** Application code lives in the
 per-domain repositories listed in the [organisation profile](profile/README.md).
 
+## The organisation
+
+| Repository | Purpose |
+| --- | --- |
+| [`web`](https://github.com/rustly-tech/web) | Static-first Astro web application for rustly.tech |
+| [`core`](https://github.com/rustly-tech/core) | Trusted control-plane backend (Rust / Axum / PostgreSQL) |
+| [`judge`](https://github.com/rustly-tech/judge) | Sandboxed Rust submission judging (Wasmtime) |
+| [`content`](https://github.com/rustly-tech/content) | Versioned educational content and validation tooling |
+| [`toolchain`](https://github.com/rustly-tech/toolchain) | Browser-side Rust compile/run abstraction and assets |
+| [`fabric`](https://github.com/rustly-tech/fabric) | Content-addressed immutable data plane (BLAKE3 CAS) |
+| [`git`](https://github.com/rustly-tech/git) | Git Smart HTTP ingress for the learning workspace |
+| [`infra`](https://github.com/rustly-tech/infra) | Reproducible $0-capable deployment and observability |
+| `.github` | This repository |
+
 ## Contents
 
 | Path | Purpose |
 | --- | --- |
-| [`profile/README.md`](profile/README.md) | Public organisation profile |
+| [`profile/README.md`](profile/README.md) | Public organisation profile - a landing page, kept short on purpose |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Org-wide contribution rules |
 | [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Contributor Covenant 2.1 |
 | [`SECURITY.md`](SECURITY.md) | Vulnerability reporting, scope, CI security baseline |
 | [`SUPPORT.md`](SUPPORT.md) | Where to take which kind of problem |
+| [`NOTICE`](NOTICE) | Licensing for code, content, and third-party material |
+| [`docs/PRODUCT.md`](docs/PRODUCT.md) | What Rustly is, the learning loop, and the product boundaries |
+| [`docs/MATURITY.md`](docs/MATURITY.md) | How capability claims are labelled |
 | [`docs/ARCHITECTURE_INVARIANTS.md`](docs/ARCHITECTURE_INVARIANTS.md) | The ten non-negotiable invariants |
 | [`docs/CI_CONVENTIONS.md`](docs/CI_CONVENTIONS.md) | Runner selection, caching, artifact, and matrix policy |
 | [`docs/RELEASE.md`](docs/RELEASE.md) | SemVer and the explicitly versioned wire formats |

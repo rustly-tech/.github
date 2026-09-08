@@ -3,11 +3,15 @@
 Thank you for helping build Rustly. This document is org-wide policy; individual
 repositories may add repo-specific notes in their own `CONTRIBUTING.md`.
 
+Read [what Rustly is](docs/PRODUCT.md) first if you are new. Most changes that
+would damage the product look reasonable until you know what it is deliberately
+not.
+
 ## Ground rules
 
-1. **Truth in labelling.** Never describe a placeholder as production-ready. Use the
-   maturity vocabulary (`IMPLEMENTED` / `QUALIFIED` / `EXPERIMENTAL` / `PLANNED`)
-   in docs, README sections, and PR descriptions.
+1. **Truth in labelling.** Never describe a placeholder as production-ready. Use
+   the [maturity vocabulary](docs/MATURITY.md) - `IMPLEMENTED`, `QUALIFIED`,
+   `EXPERIMENTAL`, `PLANNED` - in docs, README sections, and PR descriptions.
 2. **Tests prove claims.** If a PR asserts a behaviour, a test must demonstrate it.
 3. **Architectural invariants are non-negotiable.** See
    [ARCHITECTURE_INVARIANTS.md](docs/ARCHITECTURE_INVARIANTS.md). A PR that
@@ -57,8 +61,9 @@ pnpm typecheck && pnpm lint && pnpm test && pnpm build
 
 ## Content repository
 
-Content is `CC BY 4.0`. Do not paste text from copyrighted books. Write original
-explanations and cite sources. Every OSS example must record repository, commit
+Content is `CC BY 4.0`; see [NOTICE](NOTICE) for the full licensing picture. Do
+not paste text from copyrighted books. Write original explanations and cite
+sources. Every OSS example must record repository, commit
 SHA, path, line range, upstream license, and attribution. Never pin an example to
 a moving branch.
 

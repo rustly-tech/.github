@@ -1,0 +1,50 @@
+Rustly
+Copyright 2026 Rustly contributors
+
+================================================================================
+Code
+================================================================================
+
+Licensed under either of
+
+  * Apache License, Version 2.0 (see LICENSE-APACHE)
+  * MIT license (see LICENSE-MIT)
+
+at your option.
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in this work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
+
+================================================================================
+Educational content
+================================================================================
+
+Educational content in the `rustly-tech/content` repository - lessons, quizzes,
+Trial statements, cheatsheets, and explanatory prose - is licensed under the
+Creative Commons Attribution 4.0 International License (CC BY 4.0) unless a
+specific file states otherwise.
+
+  https://creativecommons.org/licenses/by/4.0/
+
+================================================================================
+Third-party material
+================================================================================
+
+Curated examples from open-source Rust projects remain under their upstream
+licenses and are used under those terms. Every such example records, in machine-
+readable metadata alongside it:
+
+  * the upstream repository
+  * the exact commit SHA it was taken from
+  * the file path and line range
+  * the upstream license identifier
+  * the attribution required by that license
+
+Examples are never pinned to a moving branch, and upstream snippets are never
+relicensed. Rustly does not reproduce copyrighted books; explanatory material is
+written originally and cites its sources.
+
+Third-party dependencies retain their own licenses. See each repository's
+`deny.toml` for the license policy enforced in CI, and the SBOM published with
+each release for the complete dependency inventory.

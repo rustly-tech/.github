@@ -1,67 +1,36 @@
 # Rustly
 
-**Rust-first learning, practice, judging, and community platform.** → [rustly.tech](https://rustly.tech)
+**Learn Rust by writing, breaking, fixing, and reading real Rust.**
 
-Rustly is not a Rust Book mirror, not a LeetCode clone with Rust enabled, not a
-generic online IDE, and not an AI wrapper. It is a platform built around one
-opinionated loop:
+Rustly teaches through short interactive lessons where you predict what the
+compiler will say before you run anything, and real `rustc` output is part of the
+explanation rather than something hidden behind it. Practice happens in **Trials**
+— judged exercises with public and hidden tests — and every concept is anchored to
+real open-source Rust, pinned to a commit, so you learn from code that actually
+ships.
 
-```
-concept -> mental model -> small runnable example -> predict result/error -> micro quiz
-   -> Hard Check -> Run -> explain compiler/runtime result -> real OSS Rust example
-   -> mutate/break/fix -> Trial -> compare accepted solutions -> cheatsheet
-```
+**[rustly.tech](https://rustly.tech)**
 
-## What makes it different
+## What's on the platform
 
-1. **Rust-only and Rust-native.** No polyglot compromises in the pedagogy.
-2. **Real compiler feedback is part of teaching.** Raw `rustc` diagnostics are never hidden.
-3. **Hard Check before execution.** You commit to a prediction before you run.
-4. **Context-aware pedagogical linting**, not just Clippy passthrough.
-5. **Mental-model visualizations** for ownership, borrows, and lifetimes.
-6. **Compact contextual cheatsheets** pinned to what you are reading right now.
-7. **Curated real-world OSS Rust examples**, pinned to immutable commit SHAs.
-8. **Post-solve solution comparison.**
-9. **High-quality sandboxed judge** - separate compile and runtime security domains.
-10. **Git-native / local-first workflow.**
-11. **Distributed content-addressed storage and compute.**
-12. **Operable in a hard $0 infrastructure mode**, failing closed financially.
+- **Learn** — structured paths, short lessons, predict-before-run, ownership and borrow visualisations
+- **Trials** — judged practice with real compiler feedback and post-solve solution comparison
+- **Cheatsheets** — compact references pinned to what you're reading right now
+- **Community** — questions, clans, events, and community-contributed Trials
 
 ## Repositories
 
-| Repository | Purpose |
+| | |
 | --- | --- |
-| [`web`](https://github.com/rustly-tech/web) | Static-first Astro web application for rustly.tech |
-| [`core`](https://github.com/rustly-tech/core) | Trusted control-plane backend (Rust / Axum / Postgres) |
-| [`judge`](https://github.com/rustly-tech/judge) | Sandboxed Rust submission judging (Wasmtime) |
-| [`content`](https://github.com/rustly-tech/content) | Versioned educational content + validation tooling |
-| [`toolchain`](https://github.com/rustly-tech/toolchain) | Browser-side Rust compile/run abstraction and assets |
-| [`fabric`](https://github.com/rustly-tech/fabric) | Content-addressed immutable data plane (BLAKE3 CAS) |
-| [`git`](https://github.com/rustly-tech/git) | Git Smart HTTP ingress for the learning workspace |
-| [`infra`](https://github.com/rustly-tech/infra) | Reproducible $0-capable deployment + observability |
-| [`.github`](https://github.com/rustly-tech/.github) | Org metadata, reusable CI, engineering standards |
+| [**web**](https://github.com/rustly-tech/web) | The rustly.tech web application |
+| [**core**](https://github.com/rustly-tech/core) | Accounts, progress, ranking, submissions |
+| [**judge**](https://github.com/rustly-tech/judge) | Sandboxed Rust execution and grading |
+| [**content**](https://github.com/rustly-tech/content) | Lessons, Trials, cheatsheets, OSS examples |
 
-## Maturity vocabulary
-
-Every claim in every Rustly repository is tagged with one of four words. We use
-them literally.
-
-| Tag | Meaning |
-| --- | --- |
-| **IMPLEMENTED** | Code exists, is built by CI, and is covered by tests. |
-| **QUALIFIED** | Independently validated against an adversarial or reproducible test corpus, and safe to depend on for the stated purpose. |
-| **EXPERIMENTAL** | Runs, but the design or safety envelope is not settled. Do not depend on it. |
-| **PLANNED** | Design or interface only. No working implementation. |
-
-**No placeholder implementation is ever described as production-ready.**
-
-## Licensing
-
-- Code: `MIT OR Apache-2.0`
-- Educational content: `CC BY 4.0`
-- Third-party snippets: upstream attribution and license retained and recorded.
+[View all repositories →](https://github.com/orgs/rustly-tech/repositories)
 
 ## Contributing
 
-Start with [CONTRIBUTING.md](https://github.com/rustly-tech/.github/blob/main/CONTRIBUTING.md)
-and [the architecture overview](https://github.com/rustly-tech/infra/blob/main/docs/ARCHITECTURE.md).
+[Contributing](https://github.com/rustly-tech/.github/blob/main/CONTRIBUTING.md) ·
+[Architecture](https://github.com/rustly-tech/infra/blob/main/docs/ARCHITECTURE.md) ·
+[Security](https://github.com/rustly-tech/.github/blob/main/SECURITY.md)

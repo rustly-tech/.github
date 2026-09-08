@@ -48,13 +48,25 @@ jobs:
       - name: Relative Markdown links resolve
         run: python3 tools/check_links.py .
 
+      - name: The organisation profile stays a landing page
+        run: |
+          set -e
+          lines=$(wc -l < profile/README.md)
+          echo "profile/README.md is $lines lines"
+          if [ "$lines" -gt 60 ]; then
+            echo "::error::the organisation profile is a landing page, not a specification."
+            echo "Move detail into docs/ (PRODUCT.md, MATURITY.md, ARCHITECTURE_INVARIANTS.md)."
+            exit 1
+          fi
+
       - name: Required org files exist
         run: |
           set -e
           for f in profile/README.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md \
-                   SUPPORT.md LICENSE-MIT LICENSE-APACHE \
+                   SUPPORT.md LICENSE-MIT LICENSE-APACHE NOTICE \
                    .github/PULL_REQUEST_TEMPLATE.md \
                    .github/ISSUE_TEMPLATE/config.yml \
+                   docs/PRODUCT.md docs/MATURITY.md \
                    docs/ARCHITECTURE_INVARIANTS.md docs/CI_CONVENTIONS.md \
                    docs/RELEASE.md docs/DEPENDENCY_POLICY.md; do
             [ -f "$f" ] || { echo "missing: $f"; exit 1; }
