@@ -36,7 +36,7 @@ body:
         - "Yes - API-light"
         - "Yes - trusted authority boundary"
         - "Yes - judge isolation"
-        - "Yes - $0 mode / cost"
+        - "Yes - hosting or operating cost"
     validations:
       required: true
   - type: textarea

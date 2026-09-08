@@ -16,10 +16,11 @@ not.
 3. **Architectural invariants are non-negotiable.** See
    [ARCHITECTURE_INVARIANTS.md](docs/ARCHITECTURE_INVARIANTS.md). A PR that
    violates one will be closed regardless of code quality.
-4. **Small trusted authority.** Do not move identity, permissions, ranking,
-   hidden tests, or accepted-verdict state out of the trusted control plane.
-5. **No paid infrastructure by default.** Every change must remain operable in
-   the `$0` configuration or be explicitly gated behind the ZeroCostGovernor.
+4. **Protect authoritative data.** Changes to identity, permissions, ranking,
+   hidden tests, or accepted verdicts require a security review.
+5. **Respect deployment constraints.** Infrastructure changes must follow the
+   policies documented in the [`infra`](https://github.com/rustly-tech/infra)
+   repository.
 
 ## Workflow
 
