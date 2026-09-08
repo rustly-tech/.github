@@ -90,6 +90,10 @@ jobs:
 Jobs: `pnpm install --frozen-lockfile`, typecheck, lint, test, build, plus a
 `pnpm audit --audit-level high` leg.
 
+The calling repository must declare `"packageManager": "pnpm@x.y.z"` in its
+`package.json`. `pnpm/action-setup` reads it, and it pins the package manager
+for contributors through corepack too.
+
 ## Why reusable workflows are referenced by `@main`
 
 External actions are pinned to immutable commit SHAs, without exception. Our own
