@@ -1,0 +1,47 @@
+name: Bug report
+description: Something in a Rustly repository behaves incorrectly.
+labels: ["type:bug", "status:triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report security vulnerabilities here. See SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit SHA
+      description: Release tag, or the exact commit you are running.
+      placeholder: v0.1.0 or 3f2a1c9
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Observed behaviour, including exact error output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Exact commands or steps. A failing test is ideal.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: submission
+    attributes:
+      label: Submission id (judge issues only)
+      description: Do not paste hidden test content.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, architecture, rustc/node version, browser if relevant.

@@ -1,0 +1,151 @@
+# Reusable Rust CI for Rustly repositories.
+#
+# Usage:
+#   jobs:
+#     ci:
+#       uses: rustly-tech/.github/.github/workflows/rust-ci.yml@main
+#       with:
+#         msrv: "1.85.0"
+#
+# Design notes:
+#   * sccache / rust-cache are accelerators only. Correctness never depends on
+#     a cache hit; a cold cache produces identical results.
+#   * Cache keys include OS, arch, toolchain and Cargo.lock (Swatinem/rust-cache
+#     derives all of these plus the job id).
+#   * Permissions are minimal; this workflow needs nothing but read access.
+name: rust-ci
+
+on:
+  workflow_call:
+    inputs:
+      toolchain:
+        description: Primary toolchain used for fmt/clippy/test.
+        type: string
+        default: stable
+      msrv:
+        description: Declared MSRV. Empty string disables the MSRV job.
+        type: string
+        default: ""
+      beta:
+        description: Also run tests on beta (non-blocking signal for upcoming breakage).
+        type: boolean
+        default: true
+      features:
+        description: Feature flags passed to clippy/test.
+        type: string
+        default: "--all-features"
+      docs:
+        description: Run cargo doc with warnings denied.
+        type: boolean
+        default: true
+      targets:
+        description: Space-separated extra rustup targets to install.
+        type: string
+        default: ""
+      apt-packages:
+        description: Space-separated apt packages required to build.
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  RUST_BACKTRACE: "1"
+
+jobs:
+  fmt:
+    name: rustfmt
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        with:
+          toolchain: ${{ inputs.toolchain }}
+          components: rustfmt
+      - run: cargo fmt --all --check
+
+  clippy:
+    name: clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        with:
+          toolchain: ${{ inputs.toolchain }}
+          components: clippy
+          targets: ${{ inputs.targets }}
+      - name: Install apt packages
+        if: inputs.apt-packages != ''
+        run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+        with:
+          key: clippy-${{ inputs.toolchain }}
+      - run: cargo clippy --workspace --all-targets ${{ inputs.features }} -- -D warnings
+
+  test:
+    name: test (${{ matrix.toolchain }})
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.toolchain == 'beta' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: ${{ inputs.beta && fromJSON(format('["{0}","beta"]', inputs.toolchain)) || fromJSON(format('["{0}"]', inputs.toolchain)) }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          targets: ${{ inputs.targets }}
+      - name: Install apt packages
+        if: inputs.apt-packages != ''
+        run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+        with:
+          key: test-${{ matrix.toolchain }}
+      - uses: taiki-e/install-action@d438492cf8a250514fa2d34b30bc3c0dc37c65ff # v2
+        with:
+          tool: cargo-nextest
+      - run: cargo nextest run --workspace ${{ inputs.features }} --no-fail-fast
+      - name: Doctests
+        run: cargo test --workspace ${{ inputs.features }} --doc
+
+  msrv:
+    name: msrv (${{ inputs.msrv }})
+    if: inputs.msrv != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        with:
+          toolchain: ${{ inputs.msrv }}
+          targets: ${{ inputs.targets }}
+      - name: Install apt packages
+        if: inputs.apt-packages != ''
+        run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+        with:
+          key: msrv-${{ inputs.msrv }}
+      - run: cargo check --workspace --all-targets ${{ inputs.features }}
+
+  docs:
+    name: cargo doc
+    if: inputs.docs
+    runs-on: ubuntu-latest
+    env:
+      RUSTDOCFLAGS: -D warnings
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        with:
+          toolchain: ${{ inputs.toolchain }}
+          targets: ${{ inputs.targets }}
+      - name: Install apt packages
+        if: inputs.apt-packages != ''
+        run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+        with:
+          key: docs
+      - run: cargo doc --workspace --no-deps ${{ inputs.features }}

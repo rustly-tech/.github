@@ -1,0 +1,45 @@
+name: Feature request
+description: Propose a capability, with acceptance criteria.
+labels: ["type:feature", "status:triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What learner or operator problem does this solve? Not a solution yet.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Concrete, testable statements. Every feature issue needs these.
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: dropdown
+    id: invariants
+    attributes:
+      label: Does this touch an architectural invariant?
+      options:
+        - "No"
+        - "Yes - static-first"
+        - "Yes - local-first"
+        - "Yes - API-light"
+        - "Yes - trusted authority boundary"
+        - "Yes - judge isolation"
+        - "Yes - $0 mode / cost"
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

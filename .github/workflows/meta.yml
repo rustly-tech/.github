@@ -1,0 +1,61 @@
+name: meta
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  validate:
+    name: validate org metadata
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Parse every YAML file
+        run: |
+          python3 - <<'PY'
+          import pathlib, sys
+          try:
+              import yaml
+          except ImportError:
+              sys.exit("PyYAML unavailable")
+          bad = 0
+          for p in sorted(pathlib.Path(".").rglob("*.yml")) + sorted(pathlib.Path(".").rglob("*.yaml")):
+              try:
+                  yaml.safe_load(p.read_text())
+              except Exception as exc:  # noqa: BLE001
+                  print(f"{p}: {exc}")
+                  bad += 1
+              else:
+                  print(f"ok  {p}")
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: All external actions are SHA-pinned
+        run: python3 tools/check_action_pins.py .
+
+      - name: Relative Markdown links resolve
+        run: python3 tools/check_links.py .
+
+      - name: Required org files exist
+        run: |
+          set -e
+          for f in profile/README.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md \
+                   SUPPORT.md LICENSE-MIT LICENSE-APACHE \
+                   .github/PULL_REQUEST_TEMPLATE.md \
+                   .github/ISSUE_TEMPLATE/config.yml \
+                   docs/ARCHITECTURE_INVARIANTS.md docs/CI_CONVENTIONS.md \
+                   docs/RELEASE.md docs/DEPENDENCY_POLICY.md; do
+            [ -f "$f" ] || { echo "missing: $f"; exit 1; }
+            echo "ok  $f"
+          done

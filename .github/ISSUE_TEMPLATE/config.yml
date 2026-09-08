@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/rustly-tech/.github/blob/main/SECURITY.md
+    about: Report privately. Never open a public issue for a vulnerability.
+  - name: Question about using Rustly
+    url: https://rustly.tech/questions
+    about: Community Q&A for learning and platform usage questions.
+  - name: Code of Conduct concern
+    url: mailto:conduct@rustly.tech
+    about: Report privately to the maintainers.

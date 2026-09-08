@@ -1,0 +1,46 @@
+# Reusable dependency/security audit for Rustly Rust repositories.
+#
+# Runs cargo-deny (licenses, bans, advisories, sources) and cargo-audit.
+# Scheduled runs are the point: a green build today can become vulnerable
+# tomorrow without any commit.
+name: rust-security
+
+on:
+  workflow_call:
+    inputs:
+      toolchain:
+        type: string
+        default: stable
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  deny:
+    name: cargo-deny (${{ matrix.checks }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        checks: [advisories, "bans licenses sources"]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2
+        with:
+          command: check ${{ matrix.checks }}
+
+  audit:
+    name: cargo-audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        with:
+          toolchain: ${{ inputs.toolchain }}
+      - uses: taiki-e/install-action@d438492cf8a250514fa2d34b30bc3c0dc37c65ff # v2
+        with:
+          tool: cargo-audit
+      - run: cargo audit --deny warnings
