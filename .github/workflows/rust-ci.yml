@@ -80,7 +80,7 @@ jobs:
       - name: Install apt packages
         if: inputs.apt-packages != ''
         run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
-      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           key: clippy-${{ inputs.toolchain }}
       - run: cargo clippy --workspace --all-targets ${{ inputs.features }} -- -D warnings
@@ -102,7 +102,7 @@ jobs:
       - name: Install apt packages
         if: inputs.apt-packages != ''
         run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
-      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           key: test-${{ matrix.toolchain }}
       - uses: taiki-e/install-action@d438492cf8a250514fa2d34b30bc3c0dc37c65ff # v2
@@ -125,7 +125,7 @@ jobs:
       - name: Install apt packages
         if: inputs.apt-packages != ''
         run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
-      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           key: msrv-${{ inputs.msrv }}
       - run: cargo check --workspace --all-targets ${{ inputs.features }}
@@ -145,7 +145,7 @@ jobs:
       - name: Install apt packages
         if: inputs.apt-packages != ''
         run: sudo apt-get update && sudo apt-get install -y ${{ inputs.apt-packages }}
-      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           key: docs
       - run: cargo doc --workspace --no-deps ${{ inputs.features }}
